@@ -1,20 +1,30 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-	body {
-		background-color: pink;
-	}
+  <meta charset="UTF-8">
+  <title>Simple Button Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
 
-	img {
-  	width: 100%;
-	}
-
-</style>
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
+<body>
+  <h1>Welcome to My Simple Page</h1>
+  <button onclick="doNothing()">Click Me</button>
 
-
-<img src="youmu-fish.gif" alt="youmu fish">
-
+  <script>
+    function doNothing() {
+      // This function does nothing
+    }
+  </script>
 </body>
-
 </html>
