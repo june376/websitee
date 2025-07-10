@@ -2,55 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>test</title>
+  <title>Moving Button</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f0f0f0;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      overflow: hidden;
       height: 100vh;
+      background-color: #f8f9fa;
+      position: relative;
+      font-family: Arial, sans-serif;
     }
 
-    #alphabet {
-      font-size: 2rem;
-      margin-bottom: 40px;
-      letter-spacing: 8px;
-    }
-
-    button {
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      border: none;
-      background-color: #007bff;
+    #moveButton {
+      position: absolute;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #28a745;
       color: white;
+      border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: top 0.3s, left 0.3s;
     }
 
-    button:hover {
-      background-color: #0056b3;
+    #moveButton:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
-  <div id="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
-  <button onclick="shuffleAlphabet()">Shuffle Letters</button>
+
+  <button id="moveButton" onclick="moveButton()">Click Me!</button>
 
   <script>
-    function shuffleAlphabet() {
-      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-      for (let i = alphabet.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [alphabet[i], alphabet[j]] = [alphabet[j], alphabet[i]];
-      }
-      document.getElementById('alphabet').textContent = alphabet.join('');
+    const button = document.getElementById('moveButton');
+
+    function moveButton() {
+      const padding = 20; // Prevents button from going off-screen
+      const maxX = window.innerWidth - button.offsetWidth - padding;
+      const maxY = window.innerHeight - button.offsetHeight - padding;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
     }
+
+    // Move button to center on load
+    window.onload = () => {
+      moveButton();
+    };
   </script>
+
 </body>
 </html>
