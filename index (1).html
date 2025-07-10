@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jvne</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #alphabet {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      letter-spacing: 8px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+  <button onclick="shuffleAlphabet()">Shuffle Letters</button>
+
+  <script>
+    function shuffleAlphabet() {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      for (let i = alphabet.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [alphabet[i], alphabet[j]] = [alphabet[j], alphabet[i]];
+      }
+      document.getElementById('alphabet').textContent = alphabet.join('');
+    }
+  </script>
+</body>
+</html>
