@@ -31,10 +31,14 @@
     }
 
     #clickCount {
-      position: absolute;
+      position: fixed;
       top: 10px;
       left: 10px;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 6px 12px;
+      border-radius: 8px;
       font-size: 1rem;
+      pointer-events: none;
     }
 
     .clicked {
@@ -54,30 +58,4 @@
 
     function moveButton() {
       count++;
-      clickDisplay.textContent = `Clicks: ${count}`;
-
-      // Add click effect
-      button.classList.add('clicked');
-      setTimeout(() => {
-        button.classList.remove('clicked');
-      }, 100);
-
-      const padding = 20;
-      const maxX = window.innerWidth - button.offsetWidth - padding;
-      const maxY = window.innerHeight - button.offsetHeight - padding;
-
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-
-      button.style.left = `${randomX}px`;
-      button.style.top = `${randomY}px`;
-    }
-
-    // Move button to center on load
-    window.onload = () => {
-      moveButton();
-    };
-  </script>
-
-</body>
-</html>
+      clickDisplay.textContent = `C
