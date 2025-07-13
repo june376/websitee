@@ -11,6 +11,7 @@
       background-color: #141414;
       position: relative;
       font-family: Arial, sans-serif;
+      color: white;
     }
 
     #moveButton {
@@ -22,23 +23,46 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: top 0.3s, left 0.3s;
+      transition: top 0.3s, left 0.3s, transform 0.1s;
     }
 
     #moveButton:hover {
       background-color: #452959;
     }
+
+    #clickCount {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1rem;
+    }
+
+    .clicked {
+      transform: scale(0.9);
+    }
   </style>
 </head>
 <body>
 
+  <div id="clickCount">Clicks: 0</div>
   <button id="moveButton" onclick="moveButton()">Click Me!</button>
 
   <script>
     const button = document.getElementById('moveButton');
+    const clickDisplay = document.getElementById('clickCount');
+    let count = 0;
 
     function moveButton() {
-      const padding = 20; // Prevents button from going off-screen
+      count++;
+      clickDisplay.textContent = `Clicks: ${count}`;
+
+      // Add click effect
+      button.classList.add('clicked');
+      setTimeout(() => {
+        button.classList.remove('clicked');
+      }, 100);
+
+      const padding = 20;
       const maxX = window.innerWidth - button.offsetWidth - padding;
       const maxY = window.innerHeight - button.offsetHeight - padding;
 
@@ -56,10 +80,4 @@
   </script>
 
 </body>
-
-</head>
-<link="icon" href="http://example.com/favicon.png">
-
-</body>
-
 </html>
