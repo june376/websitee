@@ -30,12 +30,17 @@
       background-color: #452959;
     }
 
-    #clickCount {
+    #clickCount,
+    #totalClicks,
+    #missClicks {
       position: absolute;
-      top: 10px;
       left: 10px;
       font-size: 1rem;
     }
+
+    #clickCount { top: 10px; }
+    #totalClicks { top: 30px; }
+    #missClicks { top: 50px; }
 
     .clicked {
       transform: scale(0.9);
@@ -44,17 +49,25 @@
 </head>
 <body>
 
-  <div id="clickCount">Clicks: 0</div>
+  <div id="clickCount">Button Clicks: 0</div>
+  <div id="totalClicks">Total Clicks: 0</div>
+  <div id="missClicks">Missed Clicks: 0</div>
+
   <button id="moveButton" onclick="moveButton()">Click Me!</button>
 
   <script>
     const button = document.getElementById('moveButton');
     const clickDisplay = document.getElementById('clickCount');
-    let count = 0;
+    const totalClickDisplay = document.getElementById('totalClicks');
+    const missClickDisplay = document.getElementById('missClicks');
+
+    let buttonClickCount = 0;
+    let totalClickCount = 0;
+    let missClickCount = 0;
 
     function moveButton() {
-      count++;
-      clickDisplay.textContent = `Clicks: ${count}`;
+      buttonClickCount++;
+      updateDisplays();
 
       // Add click effect
       button.classList.add('clicked');
@@ -72,6 +85,23 @@
       button.style.left = `${randomX}px`;
       button.style.top = `${randomY}px`;
     }
+
+    function updateDisplays() {
+      clickDisplay.textContent = `Button Clicks: ${buttonClickCount}`;
+      totalClickDisplay.textContent = `Total Clicks: ${totalClickCount}`;
+      missClickDisplay.textContent = `Missed Clicks: ${missClickCount}`;
+    }
+
+    document.addEventListener('click', (event) => {
+      totalClickCount++;
+
+      // If the click target is NOT the button, count it as a miss
+      if (!button.contains(event.target)) {
+        missClickCount++;
+      }
+
+      updateDisplays();
+    });
 
     // Move button to center on load
     window.onload = () => {
