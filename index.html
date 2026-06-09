@@ -1,513 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profile Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <title>test for now since im lazy</title>
   <style>
-    /* ─── TOKENS ─────────────────────────────────────────── */
-    :root {
-      --bg:        #f2f2f0;
-      --card:      #fafaf8;
-      --border:    #c8c8c2;
-      --muted:     #a0a099;
-      --text:      #2a2a28;
-      --accent:    #6e9e7e;   /* soft sage green */
-      --link:      #4a7a9b;
-      --dash:      4px dashed var(--border);
-      --radius:    16px;
-      --font-main: 'Space Grotesk', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background: var(--bg);
-      font-family: var(--font-main);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 48px 16px 80px;
-    }
-
-    /* ─── LAYOUT ─────────────────────────────────────────── */
-    .page {
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    /* ─── PROFILE CARD ───────────────────────────────────── */
-    .profile-card {
-      background: var(--card);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
+      margin: 0;
       overflow: hidden;
+      height: 100vh;
+      background-color: #141414;
       position: relative;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
-    /* Banner */
-<img class="player-avatar"
-     src="27ce83a85cc445c5f97db1e92978323f.jpg"
-     alt="tensor's avatar" />
-
-    /* Counter badge */
-    .counter {
+    #moveButton {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(250,250,248,0.85);
-      border: 1px dashed var(--border);
-      border-radius: 20px;
-      padding: 3px 10px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      backdrop-filter: blur(4px);
-      letter-spacing: 0.06em;
-    }
-
-    /* Avatar ring */
-    .avatar-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: -42px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .avatar {
-      width: 84px;
-      height: 84px;
-      border-radius: 50%;
-      border: 3px dashed var(--accent);
-      padding: 3px;
-      background: var(--card);
-      object-fit: cover;
-    }
-
-    /* Body */
-    .profile-body {
-      padding: 12px 24px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .username {
-      font-family: var(--font-mono);
-      font-size: 17px;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-top: 8px;
-      margin-bottom: 18px;
-    }
-
-    .bio {
-      width: 100%;
-      text-align: left;
-      font-size: 13.5px;
-      line-height: 1.75;
-      color: #555550;
-      border-left: 2px solid var(--accent);
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-
-    .bio .kaomoji {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    /* Location */
-    .location {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .location svg { opacity: 0.6; }
-
-    /* Social links */
-    .socials {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .socials a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-
-    .socials a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(110,158,126,0.08);
-    }
-
-    /* ─── FRIEND / ACTIVITY CARDS ────────────────────────── */
-    .activity-card {
-      background: var(--card);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .activity-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--border);
-      flex-shrink: 0;
-      background: #d8d8d4 url('https://imgur.com/9puOegW') center/cover no-repeat;
-      position: relative;
-    }
-
-    .online-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #5cba7a;
-      border: 2px solid var(--card);
-      position: absolute;
-      bottom: 1px;
-      right: 1px;
-    }
-
-    .activity-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .activity-name {
-      font-size: 13.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 3px;
-    }
-
-    .badge {
-      font-size: 11px;
-      background: rgba(110,158,126,0.15);
-      color: var(--accent);
-      border-radius: 4px;
-      padding: 1px 5px;
-      font-family: var(--font-mono);
-    }
-
-    .activity-status {
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .activity-thumb {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: #ccc url('https://placehold.co/40/cccccc/999999?text=♪') center/cover no-repeat;
-    }
-
-    /* ─── MUSIC PLAYER CARD ──────────────────────────────── */
-    .player-card {
-      background: var(--card);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    <img class="player-avatar"
-     src="Arc_VE46Tdo6oH.png"
-     alt=" " />
-
-    .player-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .player-name {
-      font-size: 12.5px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .edit-icon {
-      font-size: 10px;
-      color: var(--muted);
-    }
-
-    .scrubber-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .time {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-
-    .scrubber {
-      flex: 1;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 3px;
-      border-radius: 2px;
-      background: linear-gradient(to right, var(--text) 30%, var(--border) 30%);
-      outline: none;
-      cursor: pointer;
-    }
-
-    .scrubber::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--text);
-    }
-
-    .player-controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .ctrl-btn {
-      background: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #734694;
+      color: white;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1;
-      padding: 2px;
-      transition: color 0.15s;
+      transition: top 0.3s, left 0.3s, transform 0.1s;
     }
 
-    .ctrl-btn:hover { color: var(--text); }
+    #moveButton:hover {
+      background-color: #452959;
+    }
 
-    /* ─── EDIT NOTICE ─────────────────────────────────────── */
-    .edit-notice {
-      font-size: 11px;
-      font-family: var(--font-mono);
-      color: var(--muted);
-      text-align: center;
-      padding: 4px 0 0;
-      opacity: 0.7;
+    #clickCount,
+    #totalClicks,
+    #missClicks {
+      position: absolute;
+      left: 10px;
+      font-size: 1rem;
+    }
+
+    #clickCount { top: 10px; }
+    #totalClicks { top: 30px; }
+    #missClicks { top: 50px; }
+
+    .clicked {
+      transform: scale(0.9);
     }
   </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- ══ PROFILE CARD ══════════════════════════════════════ -->
-  <div class="profile-card">
+  <div id="clickCount">Button Clicks: 0</div>
+  <div id="totalClicks">Total Clicks: 0</div>
+  <div id="missClicks">Missed Clicks: 0</div>
 
-    <!--
-      BANNER IMAGE
-      ↓ Replace the src below with your image URL, or use a local file path.
-    -->
-    <img class="banner"
-         src="27ce83a85cc445c5f97db1e92978323f.jpg"
-         alt="Banner" />
+  <button id="moveButton" onclick="moveButton()">Click Me!</button>
 
-    <!-- Counter / stat badge (top-right) -->
-    <div class="counter">◈ 80</div>
+  <script>
+    const button = document.getElementById('moveButton');
+    const clickDisplay = document.getElementById('clickCount');
+    const totalClickDisplay = document.getElementById('totalClicks');
+    const missClickDisplay = document.getElementById('missClicks');
 
-    <!-- Avatar -->
-<img class="player-avatar"
-     src="81880dafa0a7e5331f39b9c395c5e659.jpg"
-     alt="tensor's avatar" />
-      <!-- USERNAME — change the text between the tags -->
-      <div class="username">june</div>
+    let buttonClickCount = 0;
+    let totalClickCount = 0;
+    let missClickCount = 0;
 
-      <!-- BIO — edit freely -->
-      <div class="bio">
-        Well, love is a mighty big word<br/>
-        Few can claim to know what love is.
-        <span class="kaomoji">·˖ (>_<) ·˖</span>
-      </div>
+    function moveButton() {
+      buttonClickCount++;
+      updateDisplays();
 
-      <!-- LOCATION -->
-      <div class="location">
-        <!-- pin icon -->
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/>
-          <circle cx="12" cy="9" r="2.5"/>
-        </svg>
-        Western Yomogi
-      </div>
+      // Add click effect
+      button.classList.add('clicked');
+      setTimeout(() => {
+        button.classList.remove('clicked');
+      }, 100);
 
-      <!-- SOCIAL LINKS — add/remove/edit href and icons as needed -->
-      <nav class="socials" aria-label="Social links">
+      const padding = 20;
+      const maxX = window.innerWidth - button.offsetWidth - padding;
+      const maxY = window.innerHeight - button.offsetHeight - padding;
 
-        <!-- Last.fm -->
-        <a href="#" title="Last.fm" aria-label="Last.fm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.37 18.12l-.9-2.42s-1.46 1.63-3.65 1.63c-1.94 0-3.32-1.69-3.32-4.38 0-3.46 1.74-4.68 3.46-4.68 2.47 0 3.26 1.6 3.93 3.6l.9 2.82c.9 2.74 2.6 4.94 7.5 4.94 3.52 0 5.9-1.08 5.9-3.9 0-2.28-1.3-3.46-3.73-4.02l-1.8-.4c-1.24-.28-1.6-.77-1.6-1.6 0-.94.74-1.48 1.96-1.48 1.33 0 2.04.5 2.15 1.68l2.76-.33C23.73 7.4 22.27 6 19.56 6c-2.48 0-4.9.94-4.9 3.9 0 1.85.9 3.02 3.16 3.57l1.9.46c1.4.34 1.93.9 1.93 1.73 0 1.03-.97 1.45-3.06 1.45-2.97 0-4.2-1.56-4.94-3.68l-.92-2.84C11.87 7.55 9.95 6 6.44 6 2.52 6 0 8.42 0 13.03c0 4.43 2.27 6.7 6.1 6.7 3.16 0 4.27-1.6 4.27-1.6z"/></svg>
-        </a>
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
 
-        <!-- Twitter / X -->
-        <a href="#" title="Twitter" aria-label="Twitter">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
+      button.style.left = ${randomX}px;
+      button.style.top = ${randomY}px;
+    }
 
-        <!-- Letterboxd / Film -->
-        <a href="#" title="Letterboxd" aria-label="Letterboxd">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="12" r="5"/><circle cx="17" cy="12" r="5"/></svg>
-        </a>
+    function updateDisplays() {
+      clickDisplay.textContent = Button Clicks: ${buttonClickCount};
+      totalClickDisplay.textContent = Total Clicks: ${totalClickCount};
+      missClickDisplay.textContent = Missed Clicks: ${missClickCount};
+    }
 
-        <!-- Spotify -->
-        <a href="#" title="Spotify" aria-label="Spotify">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 0 1-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.233 1.328a.78.78 0 0 1 .257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.794c3.532-1.072 9.404-.865 13.115 1.338a.937.937 0 0 1-.954 1.614z"/></svg>
-        </a>
+    document.addEventListener('click', (event) => {
+      totalClickCount++;
 
-        <!-- TikTok -->
-        <a href="#" title="TikTok" aria-label="TikTok">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.77a8.17 8.17 0 0 0 4.77 1.52V6.82a4.85 4.85 0 0 1-1-.13z"/></svg>
-        </a>
+      // If the click target is NOT the button, count it as a miss
+      if (!button.contains(event.target)) {
+        missClickCount++;
+      }
 
-      </nav>
-    </div>
-  </div><!-- /profile-card -->
+      updateDisplays();
+    });
 
+    // Move button to center on load
+    window.onload = () => {
+      moveButton();
+    };
+  </script>
 
-  <!-- ══ FRIEND ACTIVITY CARD ══════════════════════════════ -->
-  <!--
-    Duplicate this block to add more friend cards.
-    Replace: activity-avatar src, name, status text, activity-thumb src, href links.
-  -->
-  <div class="activity-card">
-    <div style="position:relative; flex-shrink:0;">
-      <img class="activity-avatar"
-           src="https://placehold.co/48/c4d8e2/7a9aaa?text=J"
-           alt="June's avatar" />
-      <div class="online-dot"></div>
-    </div>
-
-    <div class="activity-info">
-      <div class="activity-name">
-        June
-        <span class="badge">♡</span>
-        <span class="badge">✦</span>
-      </div>
-      <div class="activity-status">
-        Listening to crxw · Everything Is A Vivid Hallucination
-      </div>
-    </div>
-
-    <!--
-      ALBUM ART / THUMBNAIL
-      ↓ Replace src with album art URL
-    -->
-    <img class="activity-thumb"
-         src="https://placehold.co/40/3a3a3a/cccccc?text=♪"
-         alt="Album art" />
-  </div>
-
-
-  <!-- ══ MUSIC PLAYER CARD ═════════════════════════════════ -->
-  <div class="player-card">
-
-    <img class="player-avatar"
-         src="https://i.fakecrime.bio/pVl8d"
-         alt="tensor's avatar" />
-
-    <div class="player-info">
-      <div class="player-name">
-        tensor <span class="edit-icon">✎</span>
-      </div>
-      <div class="scrubber-wrap">
-        <span class="time">00:00</span>
-        <input class="scrubber" type="range" min="0" max="100" value="0"
-               aria-label="Track progress" id="scrubber" />
-        <span class="time" id="dur">03:04</span>
-      </div>
-    </div>
-
-    <div class="player-controls">
-      <button class="ctrl-btn" id="playBtn" aria-label="Play/Pause" title="Play/Pause">⏸</button>
-      <input type="range" min="0" max="100" value="70"
-             style="width:48px; height:3px; accent-color: var(--text); cursor:pointer;"
-             aria-label="Volume" title="Volume" />
-    </div>
-
-  </div>
-
-  <p class="edit-notice">✎ edit src/href attributes in the HTML to customise images &amp; links</p>
-
-</div><!-- /page -->
-
-<script>
-  /* Simple scrubber animation demo — remove if unused */
-  const scrubber = document.getElementById('scrubber');
-  const playBtn  = document.getElementById('playBtn');
-  let playing = false, val = 0, raf;
-
-  function tick() {
-    if (!playing) return;
-    val = Math.min(100, val + 0.012);
-    scrubber.value = val;
-    scrubber.style.background =
-      `linear-gradient(to right, var(--text) ${val}%, var(--border) ${val}%)`;
-    if (val < 100) raf = requestAnimationFrame(tick);
-    else { playing = false; playBtn.textContent = '▶'; }
-  }
-
-  playBtn.addEventListener('click', () => {
-    playing = !playing;
-    playBtn.textContent = playing ? '⏸' : '▶';
-    if (playing) raf = requestAnimationFrame(tick);
-  });
-
-  scrubber.addEventListener('input', () => {
-    val = +scrubber.value;
-    scrubber.style.background =
-      `linear-gradient(to right, var(--text) ${val}%, var(--border) ${val}%)`;
-  });
-</script>
 </body>
 </html>
